@@ -1,4 +1,4 @@
-numpy==1.14.0
+numpy==1.22.0
 pandas==0.20.2
 joblib==0.11
 bayesian-optimization==0.6.0
