@@ -4,16 +4,18 @@
 ![Banner Image](https://s3.amazonaws.com/drivendata/comp_images/wb-poverty.png)
 
 # Pover-T Tests: Predicting Poverty
+
 ## Goal of the Competition
+
 The World Bank is aiming to end extreme poverty by 2030. Crucial to this goal are techniques for determining which poverty reduction strategies work and which ones do not. But measuring poverty reduction requires measuring poverty in the first place, and it turns out that [measuring poverty is pretty hard](http://www.worldbank.org/en/topic/measuringpoverty). The World Bank helps developing countries measure poverty by conducting in-depth household surveys with a subset of the country's population. To measure poverty, most of these surveys collect detailed data on household consumption – everything from food and transportation habits to healthcare access and sporting events – in order to get a clearer picture of a household's poverty status.
 
 Can you harness the power of these data to identify the strongest predictors of poverty? Right now measuring poverty is hard, time consuming, and expensive. By building better models, we can run surveys with fewer, more targeted questions that rapidly and cheaply measure the effectiveness of new policies and interventions. The more accurate our models, the more accurately we can target interventions and iterate on policies, maximizing the impact and cost-effectiveness of these strategies.
 
 ## What's in this Repository
-This repository contains code volunteered from leading competitors in the [Pover-T Tests: Predicting Poverty](https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/) DrivenData challenge.
 
-#### Winning code for other DrivenData competitions is available in the [competition-winners repository](https://github.com/drivendataorg/competition-winners).
+This repository contains code volunteered from leading competitors in the [Pover-T Tests: Predicting Poverty](https://www.drivendata.org/competitions/50/worldbank-poverty-prediction/) DrivenData challenge. Code for all winning solutions are open source under the MIT License.
 
+**Winning code for other DrivenData competitions is available in the [competition-winners repository](https://github.com/drivendataorg/competition-winners).**
 
 ## Winning Submissions
 
@@ -24,6 +26,6 @@ Place |Team or User | Public Score | Private Score | Summary of Model
 3 | LastRocky | 0.15257 | 0.15132 | My method is basically a combination of gradient boosted decision tree and neural network. For gradient boosted decision tree models I used Lightgbm and Xgboost open source libraries. For neural network, I used Keras to build the model. I built one model for each of country A, country B and country C. The final submission is a weighted average of 10-folds cross validation combination of Xgboost model, Lightgbm model and Neural network model for Country A and B. For country C, 10-folds cross validation combination of Xgboost and Lightgbm is used. But after this competition I found 20-folds cross validation improve local validation score a little bit, so I submit the code, where I set it to 20 folds cross validation.
 Bonus | avsolatorio | 0.14966 | 0.15161 | This competition is very challenging due to the very anonymous nature of the data. Only very limited feature engineering can be done. Also, without any comprehensible insights about the features, I just decided to use an L1 regularized Logistic Regression model (with its sparse solutions in mind) to set a benchmark. It ended up working pretty well with the country A dataset. I also threw in the usual models such as Random Forest, XGBoost, LightGBM, and Neural Networks. The tree based models worked pretty well in country B and C datasets - most likely due to the heavily imbalanced nature of the two datasets. At first, my plan is to perform Bayesian optimization on the parameters to come up with a single best parameter set for each. Later, I realized that I can just combine the best performing variation of the Bayesian optimized models. I ended up building 100 variations by taking the top 20 variations of each model as the meta-models to be used in the final predictions. The common method in combining these many models is stacking. However, stacking surprisingly didn't work well. It took me a while to realize that I can fairly easily combine an arbitrary number of model results by blending them. Common appoach in blending is by manually assigning weights based on intuition. While this method works for fairly small number of models, this is not scalable to quite a number of models - in this case 100. I was able to solve this problem via a constrained optimization of the model weights. In the weight optimization process, I used the out-of-fold predictions from each meta-models and constrained the weights such that they sum up to one. The coefficients of the linear combination of the out-of-fold predictions are then optimized based on the loss metric against the actual values. This process was done using stratified cross validation (10-folds) and the coefficients for each fold were then averaged to blend the test meta-predictions. I think the model could have scored higher if I used more meta-models instead of just selecting the best 20 for each base model.
 
-#### [Interview with winners](http://drivendata.co/blog/poverty-winners/)
+**[Interview with winners](https://drivendata.co/blog/poverty-winners/)**
 
-#### Benchmark Blog Post: ["Benchmark - Predicting Poverty"](http://drivendata.co/blog/worldbank-poverty-benchmark/)
+**Benchmark Blog Post: ["Benchmark - Predicting Poverty"](https://drivendata.co/blog/worldbank-poverty-benchmark/)**
